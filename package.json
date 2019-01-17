@@ -1,0 +1,35 @@
+{
+  "name": "react-constructor",
+  "version": "1.0.0",
+  "description": "从零搭建react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev-build": "webpack --config webpack.dev.config.js",
+    "start": "webpack-dev-server --config webpack.dev.config.js --hot --color --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xzlgh/react-constructor.git"
+  },
+  "author": "xzl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xzlgh/react-constructor/issues"
+  },
+  "homepage": "https://github.com/xzlgh/react-constructor#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1"
+  },
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-router-dom": "^4.3.1"
+  }
+}
