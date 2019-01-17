@@ -3,6 +3,7 @@ const path = require('path')
 module.exports = {
   /** 入口 */
   entry: [
+    'react-hot-loader/patch',
     path.join(__dirname, 'src/index.js')
   ],
 
@@ -44,6 +45,16 @@ module.exports = {
           }
         }
       }
+    }
+  },
+
+  resolve: {
+    alias: {
+      SRC: path.join(__dirname, './src'),
+      PAGES: path.join(__dirname, './src/pages'),
+      COMPONENT: path.join(__dirname, './src/component'),
+      ROUTER: path.join(__dirname, './src/router'),
+      REDUX: path.join(__dirname, './src/redux')
     }
   }
 
