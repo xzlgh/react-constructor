@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import ReactDom from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import Hello from 'COMPONENT/Hello'
+import { Provider } from 'react-redux'
+import store from 'REDUX/store.js'
 
 import getRouter from 'ROUTER'
 
@@ -19,7 +20,9 @@ if (module.hot) {
 function renderWithHotReload(RootElement) {
   ReactDom.render(
     <AppContainer>
-      {RootElement}
+      <Provider store={store}>
+        {RootElement}
+      </Provider>
     </AppContainer>,
     document.getElementById('app')
   );
