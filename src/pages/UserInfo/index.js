@@ -18,7 +18,7 @@ class UserInfo extends Component {
             </div>
           )
         }
-        <button onClick={() => this.props.getUserInfoMsg()}>请求用户数据</button>
+        <button onClick={() => this.props.getUserInfo()}>请求用户数据</button>
       </div>
     )
   }
@@ -26,11 +26,7 @@ class UserInfo extends Component {
 
 export default connect((state) => ({
   userInfo: state.userInfo,
-}), (dispatch) => ({
-  getUserInfoMsg: function() {
-    dispatch(getUserInfo())
-  }
-}))(UserInfo)
+}), {getUserInfo})(UserInfo)
 
 
 

@@ -1,11 +1,26 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 
-import Home from 'PAGES/Home'
-import Pages1 from 'PAGES/Pages1'
-import Counter from 'PAGES/Counter'
-import UserInfo from 'PAGES/UserInfo'
+import Bundle from './Bundle'
 
+import Home from 'bundle-loader?lazy&name=home!PAGES/Home'
+import Pages1 from 'bundle-loader?lazy&name=page1!PAGES/Pages1'
+import Counter from 'bundle-loader?lazy&name=counter!PAGES/Counter'
+import UserInfo from 'bundle-loader?lazy&name=userInfo!PAGES/UserInfo'
+
+const Loading = function() {
+  return <div>Loading....</div>
+}
+
+const createComponent = (component) => (props) => {
+  return (
+    <Bundle load={component}>
+      {
+        (Component) => Component ? <Component {...props}/> : <Loading />
+      }
+    </Bundle>
+  )
+}
 
 const getRouter = () => {
   return (
@@ -18,10 +33,10 @@ const getRouter = () => {
           <li><Link to="/userInfo">UserInfo</Link></li>
         </ul>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/page1" component={Pages1} />
-          <Route path="/counter" component={Counter} />
-          <Route path="/userInfo" component={UserInfo} />
+          <Route exact path="/" component={createComponent(Home)} />
+          <Route path="/page1" component={createComponent(Pages1)} />
+          <Route path="/counter" component={createComponent(Counter)} />
+          <Route path="/userInfo" component={createComponent(UserInfo)} />
         </Switch>
       </div>
     </Router>

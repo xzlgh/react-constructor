@@ -1,5 +1,7 @@
 const path = require('path')
 
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
   /** 入口 */
   entry: [
@@ -10,7 +12,11 @@ module.exports = {
   /** 打包输出位置, 输出到dist文件夹，输出文件名字为bundle.js */
   output: {
     path: path.join(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    /**
+     * [chunkhash]是用来区分文件的唯一性的,如果缓存中有了该文件则,不会继续去请求文件
+     */
+    chunkFilename: '[name].[chunkhash].js'
   },
 
   mode: 'development',
@@ -18,11 +24,28 @@ module.exports = {
   /*src文件夹下面的以.js结尾的文件，要使用babel解析*/
   /*cacheDirectory是用来缓存编译结果，下次编译加速*/
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: ['babel-loader?cacheDirectory=true'],
-      include: path.join(__dirname, 'src')
-    }]
+    rules: [
+      {
+        test: /\.js$/,
+        use: ['babel-loader?cacheDirectory=true'],
+        include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        include: path.join(__dirname, 'src')
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            // 小于等于8k的图片会被转成base64编码,直接插入html,减少http请求
+            limit: 8192
+          }
+        }]
+      }
+    ]
   },
 
   /** 配置一个本地的web服务 */
@@ -48,6 +71,7 @@ module.exports = {
   },
 
   resolve: {
+    /** 设置别名 */
     alias: {
       SRC: path.join(__dirname, './src'),
       PAGES: path.join(__dirname, './src/pages'),
@@ -55,7 +79,14 @@ module.exports = {
       ROUTER: path.join(__dirname, './src/router'),
       REDUX: path.join(__dirname, './src/redux')
     }
-  }
+  },
+
+  devtool: 'inline-source-map',
+
+  plugins: [new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: path.join(__dirname, 'src/index.html')
+  })]
 
 }
 
