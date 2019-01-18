@@ -83,6 +83,7 @@ module.exports = {
 
   devtool: 'inline-source-map',
 
+  /** 使用缓存减少文件请求 */
   plugins: [new HtmlWebpackPlugin({
     filename: 'index.html',
     template: path.join(__dirname, 'src/index.html')
