@@ -7,9 +7,10 @@ export function getUserInfoRequest() {
 }
 
 
-export function getUserInfoSuccess() {
+export function getUserInfoSuccess(res) {
   return {
-    type: TYPE.GET_USER_INFO_SUCCESS
+    type: TYPE.GET_USER_INFO_SUCCESS,
+    userInfo: res
   }
 }
 
@@ -20,5 +21,19 @@ export function getUserInfoFail() {
   }
 }
 
+
+export default function getUserInfo() {
+  return function(dispatch) {
+    dispatch(getUserInfoRequest())
+    return fetch('http://localhost:40000/api/user.json')
+      .then(response => {
+        return response.json()
+      }).then(json => {
+        dispatch(getUserInfoSuccess(json))
+      }).catch(() => {
+        dispatch(getUserInfoFail())
+      })
+  }
+}
 
 
