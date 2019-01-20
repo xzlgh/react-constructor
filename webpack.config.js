@@ -5,6 +5,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const webpack = require('webpack')
 
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
+
 module.exports = {
   /** 入口 */
   entry: {
@@ -18,7 +20,7 @@ module.exports = {
   /** 打包输出位置, 输出到dist文件夹，输出文件名字为bundle.js */
   output: {
     path: path.join(__dirname, './dist'),
-    filename: '[name].[hash:5].js',
+    filename: '[name].[chunkhash].js',
     /**
      * [chunkhash]是用来区分文件的唯一性的,如果缓存中有了该文件则,不会继续去请求文件
      */
@@ -54,28 +56,6 @@ module.exports = {
     ]
   },
 
-  /** 配置一个本地的web服务 */
-  devServer: {
-    contentBase: path.join(__dirname, './src/mock'),
-    host: '0.0.0.0',
-    port: 40000,
-    historyApiFallback: {
-      rewrites: [
-        {from: /^./, to: './404.html'}
-      ]
-    },
-    proxy: {
-      'api': {
-        target: 'http://localhost:40000',
-        bypass: function(req, res, proxyOptions) {
-          if (req.headers.accept.indexOf('html') !== -1) {
-            return '/index.html'
-          }
-        }
-      }
-    }
-  },
-
   resolve: {
     /** 设置别名 */
     alias: {
@@ -87,7 +67,7 @@ module.exports = {
     }
   },
 
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-source-map',
 
   plugins: [
     new CleanWebpackPlugin(['./dist']),
@@ -105,7 +85,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'src/index.html'),
-    })
+    }),
+    new UglifyJSPlugin()
   ]
 }
 
