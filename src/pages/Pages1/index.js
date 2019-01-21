@@ -10,7 +10,8 @@ export default class Page1 extends Component {
             <div className="page-box">
                 this is Page1~
                 <p>试试热更新</p>
-                <img src={image} />            </div>
+                <img src={image} />            
+            </div>
         )
     }
 }
