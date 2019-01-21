@@ -23,17 +23,25 @@ export function getUserInfoFail() {
 
 
 export default function getUserInfo() {
-  return function(dispatch) {
-    dispatch(getUserInfoRequest())
-    return fetch('http://localhost:40000/api/user.json')
-      .then(response => {
-        return response.json()
-      }).then(json => {
-        dispatch(getUserInfoSuccess(json))
-      }).catch(() => {
-        dispatch(getUserInfoFail())
-      })
+  return {
+    types: [TYPE.GET_USER_INFO_REQUEST, TYPE.GET_USER_INFO_SUCCESS, TYPE.GET_USER_INFO_FAIL],
+    promise: client => client.get(`http://localhost:40000/api/user.json`)
   }
 }
+
+
+// export default function getUserInfo() {
+//   return function(dispatch) {
+//     dispatch(getUserInfoRequest())
+//     return fetch('http://localhost:40000/api/user.json')
+//       .then(response => {
+//         return response.json()
+//       }).then(json => {
+//         dispatch(getUserInfoSuccess(json))
+//       }).catch(() => {
+//         dispatch(getUserInfoFail())
+//       })
+//   }
+// }
 
 
