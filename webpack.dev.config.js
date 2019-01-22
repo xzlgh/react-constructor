@@ -37,25 +37,18 @@ const devConfig = {
     ]
   },
 
-  resolve: {
-    alias: {
-      mock: path.join(__dirname, 'mock')
-    }
-  },
-
   /** 配置一个本地的web服务 */
   devServer: {
     contentBase: path.join(__dirname, './src'),
     host: '0.0.0.0',
     port: 40000,
     historyApiFallback: true,
+    proxy: {
+      '/api/': "http://localhost:40001/$1"
+    }
   },
 
-  plugins:[
-    new webpack.DefinePlugin({
-      MOCK: true
-    })
-  ]
+  plugins:[]
 }
 
 
