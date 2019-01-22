@@ -1,8 +1,9 @@
-.page-box {
+.box {
   display: flex;
   border: 1px solid red;
+  font-size: 14px;
+  color: 14px;
 }
-
 
 
 

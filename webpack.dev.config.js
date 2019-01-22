@@ -31,7 +31,7 @@ const devConfig = {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: ['style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'postcss-loader'],
         include: path.join(__dirname, 'src')
       }
     ]
@@ -39,7 +39,7 @@ const devConfig = {
 
   resolve: {
     alias: {
-      MOCK: path.join(__dirname, 'mock')
+      mock: path.join(__dirname, 'mock')
     }
   },
 
@@ -48,18 +48,14 @@ const devConfig = {
     contentBase: path.join(__dirname, './src'),
     host: '0.0.0.0',
     port: 40000,
-    historyApiFallback: {
-      rewrites: [
-        {from: /^./, to: './404.html'}
-      ]
-    },
+    historyApiFallback: true,
   },
 
   plugins:[
     new webpack.DefinePlugin({
       MOCK: true
     })
-]
+  ]
 }
 
 

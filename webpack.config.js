@@ -35,7 +35,7 @@ const productionConfig = {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
+          "css-loader?modules&localIdentName=[local]-[hash:base64:5]",
           "postcss-loader"
         ],
         include: path.join(__dirname, 'src')

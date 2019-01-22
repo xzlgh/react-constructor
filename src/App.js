@@ -6,7 +6,7 @@ import Layout from 'ROUTER'
 export default class App extends Component {
   render() {
     return (
-      <div>
+      <div className="box">
         <Nav />
         <Layout />
       </div>

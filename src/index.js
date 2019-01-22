@@ -7,7 +7,7 @@ import App from './App'
 import { BrowserRouter as Router} from 'react-router-dom'
 
 if (MOCK) {
-  import 'MOCK/mock'  
+  require('mock/mock')  
 }
 
 // 初始化, 首次进入时渲染页面
