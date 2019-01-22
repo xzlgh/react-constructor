@@ -7,6 +7,7 @@ class UserInfo extends Component {
     const { userInfo, isLoading, errorMsg } = this.props.userInfo
     return (
       <div>
+        <p>我增加点内容测试一个reducer是否会全局刷新</p>
         {
           isLoading ? "请求信息中..." : 
           (
@@ -26,6 +27,7 @@ class UserInfo extends Component {
 
 export default connect((state) => ({
   userInfo: state.userInfo,
+  counter: state.counter
 }), {getUserInfo})(UserInfo)
 
 

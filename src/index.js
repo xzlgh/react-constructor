@@ -6,6 +6,10 @@ import store from 'REDUX/store.js'
 import App from './App'
 import { BrowserRouter as Router} from 'react-router-dom'
 
+if (MOCK) {
+  import 'MOCK/mock'  
+}
+
 // 初始化, 首次进入时渲染页面
 renderWithHotReload(App)
 

@@ -3,6 +3,8 @@ const commonConfig = require('./webpack.common.config')
 
 const path = require('path')
 
+const webpack = require('webpack');
+
 const devConfig = { 
   // 显示错误信息提示
   devtool: 'inline-source-map',
@@ -29,10 +31,16 @@ const devConfig = {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
         include: path.join(__dirname, 'src')
       }
     ]
+  },
+
+  resolve: {
+    alias: {
+      MOCK: path.join(__dirname, 'mock')
+    }
   },
 
   /** 配置一个本地的web服务 */
@@ -45,17 +53,13 @@ const devConfig = {
         {from: /^./, to: './404.html'}
       ]
     },
-    proxy: {
-      'api': {
-        target: 'http://localhost:40000',
-        bypass: function(req, res, proxyOptions) {
-          if (req.headers.accept.indexOf('html') !== -1) {
-            return '/index.html'
-          }
-        }
-      }
-    }
   },
+
+  plugins:[
+    new webpack.DefinePlugin({
+      MOCK: true
+    })
+]
 }
 
 
