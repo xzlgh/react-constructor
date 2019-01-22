@@ -3,17 +3,17 @@ import ReactDom from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import store from 'REDUX/store.js'
-
-import getRouter from 'ROUTER'
+import App from './App'
+import { BrowserRouter as Router} from 'react-router-dom'
 
 // 初始化, 首次进入时渲染页面
-renderWithHotReload(getRouter())
+renderWithHotReload(App)
 
 
 if (module.hot) {
-  module.hot.accept('ROUTER', () => {
-    const getRouter = require('ROUTER').default
-    renderWithHotReload(getRouter())
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default
+    renderWithHotReload(NextApp)
   })
 }
 
@@ -21,7 +21,9 @@ function renderWithHotReload(RootElement) {
   ReactDom.render(
     <AppContainer>
       <Provider store={store}>
-        {RootElement}
+        <Router>
+          <RootElement />
+        </Router>
       </Provider>
     </AppContainer>,
     document.getElementById('app')
